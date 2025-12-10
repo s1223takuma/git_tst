@@ -31,4 +31,14 @@ pushする時に楽にするため
 `gh repo create`<br>
 github上でリポジトリを作成する<br>
 
+`gh pr create`<br>
+プルリクエストを作成
 
+`gh pr list`<br>
+プルリクエスト一覧を表示
+
+`gh pr merge <pullID>`<br>
+プルリクエストをマージ
+
+`gh issue create`<br>
+issueを作成
