@@ -31,6 +31,9 @@ pushする時に楽にするため
 `gh repo create`<br>
 github上でリポジトリを作成する<br>
 
+`gh repo edit`<br>
+github上でリポジトリを編集する<br>
+
 `gh pr create`<br>
 プルリクエストを作成
 
@@ -42,3 +45,5 @@ github上でリポジトリを作成する<br>
 
 `gh issue create`<br>
 issueを作成
+
+
