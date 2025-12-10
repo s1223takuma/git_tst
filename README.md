@@ -1,18 +1,20 @@
 # git/ghコマンドの使い方
 
-`git init`
+
+## git command
+`git init`<br>
 ローカルにあるフォルダとgithubを連携させる<br>
 **最初に絶対入力しないとやばい 昔これ忘れてホームディレクトリ内のフォルダ全部突っ込んだことある**
 
-`git remote add origin <リポジトリのURL/SSH>`
+`git remote add origin <リポジトリのURL/SSH>`<br>
 リモートのgithubのリポジトリに接続し、originという名前をつける
 pushする時に楽にするため
 
-`git add .`
+`git add .`<br>
 カレントディレクトリでgithubにあげるファイルを取得<br>
 **多分addの後ろについてる「.」がカレントディレクトリの意味**
 
-`git commit`
+`git commit`<br>
 コミットを作成する<br>
 様々なオプションもある
 - `-m <コミットメッセージ>`メッセージ付きでコミット
@@ -24,3 +26,9 @@ pushする時に楽にするため
 
 `git push origin master`<br>
 リモートのmasterブランチに上げるコマンド
+
+## gh command(github cli)
+`gh rp create`<br>
+github上でリポジトリを作成する<br>
+
+
