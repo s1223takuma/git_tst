@@ -28,7 +28,7 @@ pushする時に楽にするため
 リモートのmasterブランチに上げるコマンド
 
 ## gh command(github cli)
-`gh rp create`<br>
+`gh repo create`<br>
 github上でリポジトリを作成する<br>
 
 
