@@ -22,5 +22,5 @@ pushする時に楽にするため
 - `-p`変更箇所ごとにコミットするかどうかを指定できる
 - `--no-edit`コミットメッセージを変更せずにコミットできる
 
-`git push origin master`
+`git push origin master`<br>
 リモートのmasterブランチに上げるコマンド
