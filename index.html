@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git/GitHub完全初心者ガイド</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans JP', sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: #f5f7fa;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        nav {
+            background: white;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+
+        nav a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #764ba2;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        section {
+            background: white;
+            margin: 2rem 0;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        h2 {
+            color: #667eea;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid #667eea;
+        }
+
+        h3 {
+            color: #764ba2;
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem 0;
+        }
+
+        h4 {
+            color: #555;
+            font-size: 1.2rem;
+            margin: 1.5rem 0 0.8rem 0;
+        }
+
+        .info-box {
+            background: #e8f4fd;
+            border-left: 4px solid #667eea;
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ff9800;
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+
+        .success-box {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+
+        code {
+            background: #f4f4f4;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #e83e8c;
+        }
+
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1rem 0;
+            line-height: 1.6;
+        }
+
+        pre code {
+            background: none;
+            color: inherit;
+            padding: 0;
+        }
+
+        ul, ol {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin: 0.5rem 0;
+        }
+
+        .term {
+            background: #f8f9fa;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border-radius: 6px;
+            border-left: 3px solid #667eea;
+        }
+
+        .term strong {
+            color: #667eea;
+            font-size: 1.1em;
+        }
+
+        .steps {
+            counter-reset: step;
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .steps li {
+            counter-increment: step;
+            margin: 1.5rem 0;
+            padding-left: 3rem;
+            position: relative;
+        }
+
+        .steps li::before {
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #667eea;
+            color: white;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        footer {
+            background: #2d2d2d;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            section {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🚀 Git/GitHub完全初心者ガイド</h1>
+        <p>これからGitを始める人のための完全ガイド</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#about">Gitとは</a></li>
+            <li><a href="#install">インストール</a></li>
+            <li><a href="#setup">初期設定</a></li>
+            <li><a href="#basic">基本的な使い方</a></li>
+            <li><a href="#trouble">トラブル対処</a></li>
+            <li><a href="#terms">用語集</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <section id="about">
+            <h2>GitとGitHubって何？</h2>
+            
+            <h3>Git（ギット）</h3>
+            <p>ファイルの変更履歴を管理するツールです。</p>
+            <ul>
+                <li>「いつ、誰が、何を変更したか」を記録できる</li>
+                <li>間違えても過去の状態に戻せる</li>
+                <li>複数人で同じファイルを編集しても安全</li>
+            </ul>
+
+            <h3>GitHub（ギットハブ）</h3>
+            <p>Gitで管理しているファイルをオンラインで保存・共有できるサービスです。</p>
+            <ul>
+                <li>他の人と一緒に開発するときに便利</li>
+                <li>自分のコードを公開できる</li>
+                <li>クラウドバックアップとしても使える</li>
+            </ul>
+        </section>
+
+        <section id="install">
+            <h2>最初にやること（初回のみ）</h2>
+
+            <h3>1. Gitのインストール</h3>
+            
+            <h4>Windows</h4>
+            <ol class="steps">
+                <li><a href="https://git-scm.com/" target="_blank">Git公式サイト</a>からインストーラーをダウンロード</li>
+                <li>基本的に全部「Next」で進めてOK</li>
+            </ol>
+
+            <h4>Mac</h4>
+            <ol class="steps">
+                <li>ターミナルを開く</li>
+                <li><code>git --version</code> と入力</li>
+                <li>インストールされていない場合、自動でインストールが始まる</li>
+            </ol>
+            <p>または Homebrew で:</p>
+            <pre><code>brew install git</code></pre>
+
+            <div class="success-box">
+                <strong>✅ インストール確認</strong>
+                <pre><code>git --version</code></pre>
+                <p>バージョン情報が表示されればOK！</p>
+            </div>
+        </section>
+
+        <section id="setup">
+            <h3>2. Gitの初期設定</h3>
+            <p>自分の名前とメールアドレスを登録します（コミット時に記録されます）。</p>
+            <pre><code>git config --global user.name "あなたの名前"
+git config --global user.email "your-email@example.com"</code></pre>
+
+            <div class="info-box">
+                <strong>💡 設定の確認方法</strong>
+                <pre><code>git config --list</code></pre>
+            </div>
+
+            <h3>3. GitHubアカウントの作成</h3>
+            <ol class="steps">
+                <li><a href="https://github.com/" target="_blank">GitHub</a>にアクセス</li>
+                <li>「Sign up」からアカウント作成</li>
+                <li>メール認証を完了させる</li>
+            </ol>
+
+            <h3>4. GitHubとの接続設定（SSH）</h3>
+            <p>パスワードを毎回入力しなくて済むように設定します。</p>
+
+            <h4>SSHキーの生成</h4>
+            <pre><code>ssh-keygen -t ed25519 -C "your-email@example.com"</code></pre>
+            <p>Enter連打でOK（パスフレーズは空でも可）</p>
+
+            <h4>公開鍵をGitHubに登録</h4>
+            <p><strong>Mac:</strong></p>
+            <pre><code>cat ~/.ssh/id_ed25519.pub | pbcopy</code></pre>
+            <p><strong>Windows (Git Bash):</strong></p>
+            <pre><code>cat ~/.ssh/id_ed25519.pub | clip</code></pre>
+
+            <ol class="steps">
+                <li>GitHubの Settings → SSH and GPG keys</li>
+                <li>「New SSH key」をクリック</li>
+                <li>コピーした内容を貼り付けて「Add SSH key」</li>
+            </ol>
+
+            <div class="success-box">
+                <strong>✅ 接続テスト</strong>
+                <pre><code>ssh -T git@github.com</code></pre>
+                <p>「Hi ユーザー名!」と表示されればOK！</p>
+            </div>
+        </section>
+
+        <section id="basic">
+            <h2>基本的な使い方</h2>
+
+            <h3>はじめてのリポジトリ作成</h3>
+
+            <h4>パターン1: ローカルから始める</h4>
+            <pre><code># 1. プロジェクトフォルダに移動
+cd ~/your-project
+
+# 2. Gitの初期化
+git init
+
+# 3. GitHubにリポジトリを作成
+gh repo create
+
+# または GitHub上で手動作成して、以下を実行
+git remote add origin git@github.com:ユーザー名/リポジトリ名.git</code></pre>
+
+            <div class="warning-box">
+                <strong>⚠️ 重要</strong>
+                <p><code>git init</code> は必ずプロジェクトのルートディレクトリで実行してください！<br>
+                ホームディレクトリで実行すると、意図しないファイルまで追跡対象になってしまいます。</p>
+            </div>
+
+            <h4>パターン2: GitHubから始める</h4>
+            <pre><code># 1. GitHub上でリポジトリを作成
+# 2. ローカルにクローン
+git clone git@github.com:ユーザー名/リポジトリ名.git
+
+# 3. フォルダに移動
+cd リポジトリ名</code></pre>
+
+            <h3>日常的な作業の流れ</h3>
+            <ol class="steps">
+                <li>ファイルを編集・作成する</li>
+                <li>変更を確認
+                    <pre><code>git status</code></pre>
+                </li>
+                <li>変更をステージング（追加）
+                    <pre><code>git add .</code></pre>
+                </li>
+                <li>コミット（変更を記録）
+                    <pre><code>git commit -m "何を変更したかのメッセージ"</code></pre>
+                </li>
+                <li>GitHubにアップロード
+                    <pre><code>git push origin main</code></pre>
+                </li>
+            </ol>
+
+            <h3>よく使うコマンド</h3>
+
+            <div class="info-box">
+                <strong>git status</strong>
+                <p>現在の状態を確認（何が変更されているか）<br>
+                <strong>迷ったらまずこれ！</strong></p>
+            </div>
+
+            <div class="term">
+                <strong>git log</strong>
+                <p>コミット履歴を表示します。終了は <code>q</code> キー</p>
+            </div>
+
+            <div class="term">
+                <strong>git diff</strong>
+                <p>変更内容の詳細を表示します</p>
+            </div>
+
+            <div class="term">
+                <strong>git fetch origin</strong>
+                <p>GitHubから最新の変更情報を取得（まだマージはしない）<br>
+                安全に確認してからマージできます</p>
+            </div>
+
+            <div class="term">
+                <strong>git merge origin/main</strong>
+                <p>fetchで取得した変更を現在のブランチにマージ</p>
+            </div>
+
+            <div class="term">
+                <strong>git pull origin main</strong>
+                <p>fetchとmergeを一度に実行（<code>git fetch</code> + <code>git merge</code>）<br>
+                慣れないうちは fetch → merge を分けた方が安全</p>
+            </div>
+        </section>
+
+        <section id="trouble">
+            <h2>よくあるトラブルと対処法</h2>
+
+            <h3>エラー: "fatal: not a git repository"</h3>
+            <p><code>git init</code> をしていません。プロジェクトフォルダで実行してください。</p>
+
+            <h3>プッシュできない</h3>
+            <div class="info-box">
+                <strong>おすすめ: 変更を確認してからマージ</strong>
+                <pre><code>git fetch origin
+git log HEAD..origin/main  # 差分を確認
+git merge origin/main
+git push origin main</code></pre>
+            </div>
+            <p>または一気に実行:</p>
+            <pre><code>git pull origin main
+git push origin main</code></pre>
+
+            <h3>間違えてコミットした</h3>
+            <pre><code># 直前のコミットを取り消し（変更は残る）
+git reset --soft HEAD^
+
+# 変更ごと完全に取り消し（⚠️注意）
+git reset --hard HEAD^</code></pre>
+
+            <h3>ブランチ名を変更したい（master → main）</h3>
+            <pre><code>git branch -M main
+git push -u origin main</code></pre>
+        </section>
+
+        <section id="terms">
+            <h2>覚えておくべき用語</h2>
+
+            <div class="term">
+                <strong>リポジトリ（Repository）</strong>
+                <p>プロジェクトの保管場所</p>
+            </div>
+
+            <div class="term">
+                <strong>コミット（Commit）</strong>
+                <p>変更の記録・スナップショット</p>
+            </div>
+
+            <div class="term">
+                <strong>プッシュ（Push）</strong>
+                <p>ローカルの変更をGitHubにアップロード</p>
+            </div>
+
+            <div class="term">
+                <strong>フェッチ（Fetch）</strong>
+                <p>GitHubの変更情報を取得（マージはしない）</p>
+            </div>
+
+            <div class="term">
+                <strong>マージ（Merge）</strong>
+                <p>取得した変更を現在のブランチに統合</p>
+            </div>
+
+            <div class="term">
+                <strong>プル（Pull）</strong>
+                <p>フェッチとマージを同時に実行</p>
+            </div>
+
+            <div class="term">
+                <strong>ブランチ（Branch）</strong>
+                <p>作業を分岐させる機能（後で学ぶ）</p>
+            </div>
+
+            <div class="term">
+                <strong>クローン（Clone）</strong>
+                <p>GitHubのリポジトリをローカルにコピー</p>
+            </div>
+
+            <h3>最初のステップ</h3>
+            <ol>
+                <li>簡単なプロジェクトで試してみる（例: README.mdだけのリポジトリ）</li>
+                <li>変更 → add → commit → push の流れを何度か繰り返す</li>
+                <li>慣れてきたら <code>.gitignore</code> やブランチなどを学ぶ</li>
+            </ol>
+
+            <h3>便利なリソース</h3>
+            <ul>
+                <li><a href="https://docs.github.com/ja" target="_blank">GitHub公式ドキュメント</a></li>
+                <li><a href="https://skills.github.com/" target="_blank">GitHub Skills</a> - インタラクティブな学習</li>
+                <li><a href="https://backlog.com/ja/git-tutorial/" target="_blank">Git入門（サル先生）</a> - 日本語の分かりやすい解説</li>
+            </ul>
+
+            <div class="warning-box">
+                <strong>⚠️ 注意点</strong>
+                <ul>
+                    <li><code>git init</code> は必ずプロジェクトフォルダで実行</li>
+                    <li>コミットメッセージは分かりやすく書く</li>
+                    <li>機密情報（パスワードなど）は絶対にコミットしない</li>
+                    <li>定期的にプッシュしてバックアップ</li>
+                </ul>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>© 2024 Git/GitHub初心者ガイド | 作成者への連絡は GitHub Issues で</p>
+    </footer>
+
+    <script>
+        // スムーススクロール
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+    </script>
+</body>
+</html>
