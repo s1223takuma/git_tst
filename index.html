@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Git/GitHubメモガイド</title>
+    <title>Git/GitHub完全初心者ガイド</title>
     <style>
         * {
             margin: 0;
@@ -228,7 +228,8 @@
 </head>
 <body>
     <header>
-        <h1>🚀 Git/GitHubメモガイド</h1>
+        <h1>🚀 Git/GitHub完全初心者ガイド</h1>
+        <p>これからGitを始める人のための完全ガイド</p>
     </header>
 
     <nav>
@@ -236,6 +237,7 @@
             <li><a href="#about">Gitとは</a></li>
             <li><a href="#install">インストール</a></li>
             <li><a href="#setup">初期設定</a></li>
+            <li><a href="#gh-cli">GitHub CLI</a></li>
             <li><a href="#basic">基本的な使い方</a></li>
             <li><a href="#trouble">トラブル対処</a></li>
             <li><a href="#terms">用語集</a></li>
@@ -331,6 +333,242 @@ git config --global user.email "your-email@example.com"</code></pre>
                 <strong>✅ 接続テスト</strong>
                 <pre><code>ssh -T git@github.com</code></pre>
                 <p>「Hi ユーザー名!」と表示されればOK！</p>
+            </div>
+        </section>
+
+        <section id="gh-cli">
+            <h2>GitHub CLI（gh コマンド）</h2>
+            <p>GitHub CLIは、ターミナルから直接GitHubを操作できる公式ツールです。リポジトリ作成やプルリクエストの管理などがコマンドラインで完結します。</p>
+
+            <h3>GitHub CLIのインストール</h3>
+
+            <h4>Windows</h4>
+            <p><strong>方法1: wingetを使う（推奨）</strong></p>
+            <pre><code>winget install --id GitHub.cli</code></pre>
+
+            <p><strong>方法2: インストーラー</strong></p>
+            <ol class="steps">
+                <li><a href="https://cli.github.com/" target="_blank">GitHub CLI公式サイト</a>からインストーラーをダウンロード</li>
+                <li>ダウンロードした .msi ファイルを実行</li>
+            </ol>
+
+            <h4>Mac</h4>
+            <pre><code>brew install gh</code></pre>
+
+            <h4>Linux</h4>
+            <p><strong>Ubuntu/Debian:</strong></p>
+            <pre><code>sudo apt install gh</code></pre>
+
+            <p><strong>Fedora/RHEL:</strong></p>
+            <pre><code>sudo dnf install gh</code></pre>
+
+            <div class="success-box">
+                <strong>✅ インストール確認</strong>
+                <pre><code>gh --version</code></pre>
+                <p>バージョン情報が表示されればOK！</p>
+            </div>
+
+            <h3>GitHub CLIの初期設定</h3>
+            <p>最初に一度だけ認証を行います。</p>
+            <pre><code>gh auth login</code></pre>
+
+            <div class="info-box">
+                <strong>💡 設定の流れ</strong>
+                <ol>
+                    <li>「GitHub.com」を選択</li>
+                    <li>「HTTPS」または「SSH」を選択（SSHがおすすめ）</li>
+                    <li>「Login with a web browser」を選択</li>
+                    <li>表示されるコードをコピー</li>
+                    <li>ブラウザでGitHubにログインしてコードを入力</li>
+                </ol>
+            </div>
+
+            <h3>リポジトリ管理</h3>
+
+            <h4>gh repo create</h4>
+            <p>GitHub上に新しいリポジトリを作成します。</p>
+            <pre><code># インタラクティブに作成
+gh repo create
+
+# 直接作成（パブリック）
+gh repo create my-project --public
+
+# 直接作成（プライベート）
+gh repo create my-project --private
+
+# READMEも一緒に作成
+gh repo create my-project --public --add-readme</code></pre>
+
+            <h4>gh repo clone</h4>
+            <p>リポジトリをクローンします（git clone の gh版）。</p>
+            <pre><code># 自分のリポジトリ
+gh repo clone my-project
+
+# 他のユーザーのリポジトリ
+gh repo clone username/repository</code></pre>
+
+            <h4>gh repo view</h4>
+            <p>リポジトリの情報を表示します。</p>
+            <pre><code># 現在のリポジトリ
+gh repo view
+
+# ブラウザで開く
+gh repo view --web</code></pre>
+
+            <h4>gh repo edit</h4>
+            <p>リポジトリの設定を編集します。</p>
+            <pre><code># 説明を変更
+gh repo edit --description "新しい説明"
+
+# デフォルトブランチを変更
+gh repo edit --default-branch main
+
+# プライベートに変更
+gh repo edit --visibility private</code></pre>
+
+            <h3>プルリクエスト管理</h3>
+
+            <h4>gh pr create</h4>
+            <p>プルリクエストを作成します。</p>
+            <pre><code># インタラクティブに作成
+gh pr create
+
+# タイトルと本文を指定して作成
+gh pr create --title "新機能の追加" --body "詳細な説明"
+
+# ブラウザで作成
+gh pr create --web</code></pre>
+
+            <h4>gh pr list</h4>
+            <p>プルリクエストの一覧を表示します。</p>
+            <pre><code># 一覧を表示
+gh pr list
+
+# 自分が作成したPRのみ
+gh pr list --author "@me"
+
+# 特定のステータス
+gh pr list --state open</code></pre>
+
+            <h4>gh pr view</h4>
+            <p>プルリクエストの詳細を表示します。</p>
+            <pre><code># PR番号を指定
+gh pr view 123
+
+# ブラウザで開く
+gh pr view 123 --web</code></pre>
+
+            <h4>gh pr checkout</h4>
+            <p>プルリクエストのブランチに切り替えます。</p>
+            <pre><code>gh pr checkout 123</code></pre>
+
+            <h4>gh pr merge</h4>
+            <p>プルリクエストをマージします。</p>
+            <pre><code># マージ
+gh pr merge 123
+
+# Squash merge
+gh pr merge 123 --squash
+
+# Rebase merge
+gh pr merge 123 --rebase
+
+# PRを削除してマージ
+gh pr merge 123 --delete-branch</code></pre>
+
+            <h4>gh pr close</h4>
+            <p>プルリクエストをクローズします。</p>
+            <pre><code>gh pr close 123</code></pre>
+
+            <h3>Issue管理</h3>
+
+            <h4>gh issue create</h4>
+            <p>新しいIssueを作成します。</p>
+            <pre><code># インタラクティブに作成
+gh issue create
+
+# タイトルと本文を指定
+gh issue create --title "バグ報告" --body "詳細な説明"
+
+# ラベルを付ける
+gh issue create --title "バグ報告" --label bug</code></pre>
+
+            <h4>gh issue list</h4>
+            <p>Issueの一覧を表示します。</p>
+            <pre><code># 一覧を表示
+gh issue list
+
+# 自分が作成したIssueのみ
+gh issue list --author "@me"
+
+# ラベルで絞り込み
+gh issue list --label bug</code></pre>
+
+            <h4>gh issue view</h4>
+            <p>Issueの詳細を表示します。</p>
+            <pre><code># Issue番号を指定
+gh issue view 456
+
+# ブラウザで開く
+gh issue view 456 --web</code></pre>
+
+            <h4>gh issue close</h4>
+            <p>Issueをクローズします。</p>
+            <pre><code>gh issue close 456</code></pre>
+
+            <h3>その他の便利なコマンド</h3>
+
+            <h4>gh browse</h4>
+            <p>現在のリポジトリをブラウザで開きます。</p>
+            <pre><code>gh browse</code></pre>
+
+            <h4>gh gist create</h4>
+            <p>Gistを作成します。</p>
+            <pre><code># ファイルからGistを作成
+gh gist create file.txt
+
+# パブリックGist
+gh gist create file.txt --public
+
+# プライベートGist（デフォルト）
+gh gist create file.txt</code></pre>
+
+            <h4>gh release create</h4>
+            <p>リリースを作成します。</p>
+            <pre><code># リリースを作成
+gh release create v1.0.0 --title "Version 1.0.0" --notes "リリースノート"
+
+# ファイルを添付
+gh release create v1.0.0 ./dist/app.zip</code></pre>
+
+            <div class="info-box">
+                <strong>💡 よく使うコマンドの組み合わせ</strong>
+                <pre><code># 新しいプロジェクトを始める
+mkdir my-project && cd my-project
+git init
+gh repo create my-project --public --source=. --remote=origin
+git add .
+git commit -m "Initial commit"
+git push -u origin main
+
+# PRを作成してマージまで
+git checkout -b feature-branch
+# コードを編集...
+git add .
+git commit -m "新機能を追加"
+git push origin feature-branch
+gh pr create --fill
+gh pr merge --squash --delete-branch</code></pre>
+            </div>
+
+            <div class="warning-box">
+                <strong>⚠️ 便利なTips</strong>
+                <ul>
+                    <li><code>gh alias set</code> でよく使うコマンドにエイリアスを設定できる</li>
+                    <li><code>gh config set editor vim</code> でデフォルトエディタを変更できる</li>
+                    <li><code>gh --help</code> でヘルプを表示できる</li>
+                    <li>ほとんどのコマンドで <code>--web</code> オプションが使える（ブラウザで開く）</li>
+                </ul>
             </div>
         </section>
 
