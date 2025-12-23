@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ターミナル基本コマンド集</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans JP', sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: #f5f7fa;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        .back-link {
+            background: white;
+            padding: 1rem 2rem;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .back-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        nav {
+            background: white;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+
+        nav a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #764ba2;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        section {
+            background: white;
+            margin: 2rem 0;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        h2 {
+            color: #667eea;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid #667eea;
+        }
+
+        h3 {
+            color: #764ba2;
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem 0;
+        }
+
+        h4 {
+            color: #555;
+            font-size: 1.2rem;
+            margin: 1.5rem 0 0.8rem 0;
+        }
+
+        .info-box {
+            background: #e8f4fd;
+            border-left: 4px solid #667eea;
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ff9800;
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+
+        .success-box {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+
+        code {
+            background: #f4f4f4;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #e83e8c;
+        }
+
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1rem 0;
+            line-height: 1.6;
+        }
+
+        pre code {
+            background: none;
+            color: inherit;
+            padding: 0;
+        }
+
+        ul, ol {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin: 0.5rem 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: white;
+        }
+
+        th {
+            background: #667eea;
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        .command-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .command-card h4 {
+            color: #667eea;
+            margin-top: 0;
+        }
+
+        .os-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+
+        .os-windows {
+            background: #0078d4;
+            color: white;
+        }
+
+        .os-bash {
+            background: #4caf50;
+            color: white;
+        }
+
+        .os-both {
+            background: #ff9800;
+            color: white;
+        }
+
+        footer {
+            background: #2d2d2d;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            section {
+                padding: 1.5rem;
+            }
+
+            table {
+                font-size: 0.9em;
+            }
+
+            th, td {
+                padding: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>💻 ターミナル基本コマンド集</h1>
+        <p>Windows Command Prompt / Bash（Mac/Linux/Git Bash）対応</p>
+    </header>
+
+    <div class="back-link">
+        <a href="https://s1223takuma.github.io/git_tst/index.html">← Git/GitHubガイドに戻る</a>
+    </div>
+
+    <nav>
+        <ul>
+            <li><a href="#intro">はじめに</a></li>
+            <li><a href="#navigation">移動・表示</a></li>
+            <li><a href="#file-ops">ファイル操作</a></li>
+            <li><a href="#file-view">ファイル閲覧・編集</a></li>
+            <li><a href="#search">検索</a></li>
+            <li><a href="#system">システム情報</a></li>
+            <li><a href="#tips">便利なTips</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <section id="intro">
+            <h2>はじめに</h2>
+            <p>このガイドでは、WindowsのCommand PromptとBash（Mac/Linux/Git Bash）の両方のコマンドを紹介します。</p>
+
+            <div class="info-box">
+                <strong>💡 ターミナルの種類</strong>
+                <ul>
+                    <li><strong>Windows Command Prompt (cmd)</strong>: Windowsの標準コマンドライン</li>
+                    <li><strong>Bash</strong>: Mac/Linux標準、WindowsではGit Bashで利用可能</li>
+                    <li><strong>PowerShell</strong>: Windowsの新しいシェル（ここでは扱いません）</li>
+                </ul>
+            </div>
+
+            <div class="warning-box">
+                <strong>⚠️ 推奨環境</strong>
+                <p>Gitを使う場合、Windowsでも <strong>Git Bash</strong> の使用を推奨します。Bashコマンドが使えるため、Mac/Linuxとコマンドを統一できます。</p>
+            </div>
+
+            <h3>記号の意味</h3>
+            <p>
+                <span class="os-badge os-windows">Windows</span> Windows Command Promptのコマンド<br>
+                <span class="os-badge os-bash">Bash</span> Bash（Mac/Linux/Git Bash）のコマンド<br>
+                <span class="os-badge os-both">共通</span> 両方で使えるコマンド
+            </p>
+        </section>
+
+        <section id="navigation">
+            <h2>ディレクトリの移動と表示</h2>
+
+            <div class="command-card">
+                <h4>現在のディレクトリを確認</h4>
+                <p><span class="os-badge os-windows">Windows</span></p>
+                <pre><code>cd</code></pre>
+                <p><span class="os-badge os-bash">Bash</span></p>
+                <pre><code>pwd</code></pre>
+                <p><strong>説明:</strong> Print Working Directory の略。今いる場所（カレントディレクトリ）のパスを表示します。</p>
+            </div>
+
+            <div class="command-card">
+                <h4>ディレクトリの内容を一覧表示</h4>
+                <p><span class="os-badge os-windows">Windows</span></p>
+                <pre><code>dir</code></pre>
+                <p><span class="os-badge os-bash">Bash</span></p>
+                <pre><code>ls</code></pre>
+                <p><strong>よく使うオプション（Bash）:</strong></p>
+                <ul>
+                    <li><code>ls -l</code> - 詳細表示（ファイルサイズ、権限など）</li>
+                    <li><code>ls -a</code> - 隠しファイルも表示</li>
+                    <li><code>ls -la</code> - 両方を組み合わせ</li>
+                    <li><code>ls -lh</code> - ファイルサイズを人間が読みやすい形式で表示</li>
+                </ul>
+            </div>
+
+            <div class="command-card">
+                <h4>ディレクトリを移動</h4>
+                <p><span class="os-badge os-both">共通</span></p>
+                <pre><code># 指定したディレクトリに移動
+cd Documents
+
+# 一つ上のディレクトリに移動
+cd ..
+
+# 二つ上のディレクトリに移動
+cd ../..
+
+# ホームディレクトリに移動（Bash）
+cd ~
+
+# ルートディレクトリに移動（Bash）
+cd /</code></pre>
+                <div class="info-box">
+                    <strong>💡 パスの種類</strong>
+                    <ul>
+                        <li><strong>相対パス:</strong> <code>cd Documents</code> - 現在地からの相対的な位置</li>
+                        <li><strong>絶対パス:</strong> <code>cd /Users/username/Documents</code> - ルートからの完全なパス</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="command-card">
+                <h4>ドライブを移動（Windowsのみ）</h4>
+                <p><span class="os-badge os-windows">Windows</span></p>
+                <pre><code># Dドライブに移動
+D:
+
+# Cドライブに移動
+C:</code></pre>
+            </div>
+        </section>
+
+        <section id="file-ops">
+            <h2>ファイル・ディレクトリ操作</h2>
+
+            <div class="command-card">
+                <h4>空のファイルを作成</h4>
+                <p><span class="os-badge os-windows">Windows</span></p>
+                <pre><code>type nul > filename.txt</code></pre>
+                <p><span class="os-badge os-bash">Bash</span></p>
+                <pre><code>touch filename.txt
+
+# 複数のファイルを一度に作成
+touch file1.txt file2.txt file3.txt</code></pre>
+            </div>
+
+            <div class="command-card">
+                <h4>ディレクトリ（フォルダ）を作成</h4>
+                <p><span class="os-badge os-windows">Windows</span></p>
+                <pre><code>mkdir my-folder
+
+# 複数階層を一度に作成
+mkdir parent\child\grandchild</code></pre>
+                <p><span class="os-badge os-bash">Bash</span></p>
+                <pre><code>mkdir my-folder
+
+# 複数階層を一度に作成
+mkdir -p parent/child/grandchild</code></pre>
+            </div>
+
+            <div class="command-card">
+                <h4>ファイル・ディレクトリをコピー</h4>
+                <p><span class="os-badge os-windows">Windows</span></p>
+                <pre><code># ファイルをコピー
+copy file.txt copy.txt
+
+# ディレクトリをコピー
+xcopy source dest /E /I</code></pre>
+                <p><span class="os-badge os-bash">Bash</span></p>
+                <pre><code># ファイルをコピー
+cp file.txt copy.txt
+
+# ディレクトリをコピー（再帰的）
+cp -r source/ dest/</code></pre>
+            </div>
+
+            <div class="command-card">
+                <h4>ファイル・ディレクトリを移動/名前変更</h4>
+                <p><span class="os-badge os-windows">Windows</span></p>
+                <pre><code># 名前変更
+rename old.txt new.txt
+
+# 移動
+move file.txt dest\</code></pre>
+                <p><span class="os-badge os-bash">Bash</span></p>
+                <pre><code># 名前変更
+mv old.txt new.txt
+
+# 移動
+mv file.txt dest/</code></pre>
+            </div>
+
+            <div class="command-card">
+                <h4>ファイル・ディレクトリを削除</h4>
+                <p><span class="os-badge os-windows">Windows</span></p>
+                <pre><code># ファイルを削除
+del file.txt
+
+# ディレクトリを削除（空の場合）
+rmdir folder
+
+# ディレクトリを削除（中身ごと）
+rmdir /S folder</code></pre>
+                <p><span class="os-badge os-bash">Bash</span></p>
+                <pre><code># ファイルを削除
+rm file.txt
+
+# ディレクトリを削除（空の場合）
+rmdir folder
+
+# ディレクトリを削除（中身ごと）
+rm -r folder
+
+# 確認なしで強制削除（危険！）
+rm -rf folder</code></pre>
+                <div class="warning-box">
+                    <strong>⚠️ 削除コマンドは慎重に！</strong>
+                    <p><code>rm -rf</code> は非常に強力で、取り消しができません。特に <code>/</code> などの重要なディレクトリで実行すると、システムが壊れる可能性があります。</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="file-view">
+            <h2>ファイルの閲覧と編集</h2>
+
+            <div class="command-card">
+                <h4>ファイルの内容を表示</h4>
+                <p><span class="os-badge os-windows">Windows</span></p>
+                <pre><code>type file.txt</code></pre>
+                <p><span class="os-badge os-bash">Bash</span></p>
+                <pre><code># 全体を表示
+cat file.txt
+
+# 複数ファイルを連結して表示
+cat file1.txt file2.txt
+
+# ファイルの先頭10行を表示
+head file.txt
+
+# ファイルの末尾10行を表示
+tail file.txt
+
+# ファイルの末尾をリアルタイムで監視（ログファイルなど）
+tail -f logfile.txt</code></pre>
+            </div>
+
+            <div class="command-card">
+                <h4>ファイルをページごとに表示</h4>
+                <p><span class="os-badge os-windows">Windows</span></p>
+                <pre><code>more file.txt</code></pre>
+                <p><span class="os-badge os-bash">Bash</span></p>
+                <pre><code># ページごとに表示（基本）
+more file.txt
+
+# ページごとに表示（高機能、上下スクロール可能）
+less file.txt</code></pre>
+                <div class="info-box">
+                    <strong>💡 lessの操作方法</strong>
+                    <ul>
+                        <li><code>Space</code> - 次のページ</li>
+                        <li><code>b</code> - 前のページ</li>
+                        <li><code>/検索語</code> - 検索</li>
+                        <li><code>q</code> - 終了</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="command-card">
+                <h4>テキストエディタ</h4>
+                <p><span class="os-badge os-windows">Windows</span></p>
+                <pre><code># メモ帳で開く
+notepad file.txt</code></pre>
+                <p><span class="os-badge os-bash">Bash</span></p>
+                <pre><code># nanoエディタ（初心者向け）
+nano file.txt
+
+# vimエディタ（高機能だが学習曲線が急）
+vim file.txt</code></pre>
+                
+                <h4>vim の基本操作</h4>
+                <div class="info-box">
+                    <strong>💡 vimの基本</strong>
+                    <ul>
+                        <li><code>i</code> - 挿入モードに入る（編集開始）</li>
+                        <li><code>ESC</code> - ノーマルモードに戻る</li>
+                        <li><code>:w</code> - 保存</li>
+                        <li><code>:q</code> - 終了</li>
+                        <li><code>:wq</code> - 保存して終了</li>
+                        <li><code>:q!</code> - 保存せずに強制終了</li>
+                    </ul>
+                </div>
+
+                <h4>nano の基本操作</h4>
+                <div class="info-box">
+                    <strong>💡 nanoの基本</strong>
+                    <ul>
+                        <li>そのまま編集可能</li>
+                        <li><code>Ctrl + O</code> - 保存</li>
+                        <li><code>Ctrl + X</code> - 終了</li>
+                        <li><code>Ctrl + K</code> - 行を切り取り</li>
+                        <li><code>Ctrl + U</code> - 貼り付け</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="search">
+            <h2>検索</h2>
+
+            <div class="command-card">
+                <h4>ファイル名で検索</h4>
+                <p><span class="os-badge os-windows">Windows</span></p>
+                <pre><code># カレントディレクトリ以下を検索
+dir /S filename.txt</code></pre>
+                <p><span class="os-badge os-bash">Bash</span></p>
+                <pre><code># カレントディレクトリ以下を検索
+find . -name "filename.txt"
+
+# 大文字小文字を区別せずに検索
+find . -iname "filename.txt"
+
+# 特定の拡張子を検索
+find . -name "*.txt"</code></pre>
+            </div>
+
+            <div class="command-card">
+                <h4>ファイルの内容を検索</h4>
+                <p><span class="os-badge os-windows">Windows</span></p>
+                <pre><code># ファイル内を検索
+findstr "検索語" file.txt
+
+# 複数ファイルを検索
+findstr "検索語" *.txt</code></pre>
+                <p><span class="os-badge os-bash">Bash</span></p>
+                <pre><code># ファイル内を検索
+grep "検索語" file.txt
+
+# 大文字小文字を区別せずに検索
+grep -i "検索語" file.txt
+
+# 行番号も表示
+grep -n "検索語" file.txt
+
+# 複数ファイルを再帰的に検索
+grep -r "検索語" .
+
+# マッチした行の前後も表示
+grep -C 2 "検索語" file.txt  # 前後2行ずつ</code></pre>
+            </div>
+        </section>
+
+        <section id="system">
+            <h2>システム情報</h2>
+
+            <div class="command-card">
+                <h4>現在のユーザー名を表示</h4>
+                <p><span class="os-badge os-windows">Windows</span></p>
+                <pre><code>echo %USERNAME%</code></pre>
+                <p><span class="os-badge os-bash">Bash</span></p>
+                <pre><code>whoami</code></pre>
+            </div>
+
+            <div class="command-card">
+                <h4>コマンドの場所を調べる</h4>
+                <p><span class="os-badge os-windows">Windows</span></p>
+                <pre><code>where git</code></pre>
+                <p><span class="os-badge os-bash">Bash</span></p>
+                <pre><code>which git</code></pre>
+            </div>
+
+            <div class="command-card">
+                <h4>環境変数を表示</h4>
+                <p><span class="os-badge os-windows">Windows</span></p>
+                <pre><code># すべての環境変数
+set
+
+# 特定の環境変数
+echo %PATH%</code></pre>
+                <p><span class="os-badge os-bash">Bash</span></p>
+                <pre><code># すべての環境変数
+env
+
+# 特定の環境変数
+echo $PATH</code></pre>
+            </div>
+
+            <div class="command-card">
+                <h4>テキストを出力</h4>
+                <p><span class="os-badge os-both">共通</span></p>
+                <pre><code>echo "Hello World"
+
+# ファイルに書き込み（上書き）
+echo "Hello" > file.txt
+
+# ファイルに追記
+echo "World" >> file.txt</code></pre>
+            </div>
+        </section>
+
+        <section id="tips">
+            <h2>便利なTips</h2>
+
+            <div class="command-card">
+                <h4>画面をクリア</h4>
+                <p><span class="os-badge os-windows">Windows</span></p>
+                <pre><code>cls</code></pre>
+                <p><span class="os-badge os-bash">Bash</span></p>
+                <pre><code>clear</code></pre>
+            </div>
+
+            <div class="command-card">
+                <h4>コマンド履歴</h4>
+                <p><span class="os-badge os-windows">Windows</span></p>
+                <pre><code># 履歴を表示
+doskey /history
+
+# 上下キーで履歴を辿る</code></pre>
+                <p><span class="os-badge os-bash">Bash</span></p>
+                <pre><code># 履歴を表示
+history
+
+# 上下キーで履歴を辿る
+
+# 履歴から検索（Ctrl + R）
+# その後検索語を入力</code></pre>
+            </div>
+
+            <div class="command-card">
+                <h4>コマンドのヘルプを表示</h4>
+                <p><span class="os-badge os-windows">Windows</span></p>
+                <pre><code>command /?
+
+# 例
+dir /?</code></pre>
+                <p><span class="os-badge os-bash">Bash</span></p>
+                <pre><code>man command
+
+# 例
+man ls
+
+# または
+command --help</code></pre>
+            </div>
+
+            <div class="command-card">
+                <h4>パイプとリダイレクト</h4>
+                <p><span class="os-badge os-both">共通</span></p>
+                <pre><code># コマンドの出力を別のコマンドに渡す
+ls -l | grep ".txt"
+
+# 出力をファイルに保存（上書き）
+ls > filelist.txt
+
+# 出力をファイルに追記
+ls >> filelist.txt
+
+# エラー出力も含めてファイルに保存（Bash）
+command > output.txt 2>&1</code></pre>
+            </div>
+
+            <div class="command-card">
+                <h4>ショートカットキー（Bash）</h4>
+                <div class="info-box">
+                    <strong>💡 便利なキーボードショートカット</strong>
+                    <ul>
+                        <li><code>Ctrl + C</code> - 実行中のコマンドを中断</li>
+                        <li><code>Ctrl + D</code> - ターミナルを終了（exit）</li>
+                        <li><code>Ctrl + L</code> - 画面をクリア（clear）</li>
+                        <li><code>Ctrl + A</code> - 行の先頭に移動</li>
+                        <li><code>Ctrl + E</code> - 行の末尾に移動</li>
+                        <li><code>Ctrl + U</code> - カーソルより前を削除</li>
+                        <li><code>Ctrl + K</code> - カーソルより後を削除</li>
+                        <li><code>Ctrl + R</code> - コマンド履歴を検索</li>
+                        <li><code>Tab</code> - ファイル名やコマンドを補完</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="command-card">
+                <h4>エイリアス（Bash）</h4>
+                <pre><code># よく使うコマンドに短縮名をつける
+alias ll='ls -la'
+alias gs='git status'
+
+# エイリアスを永続化（.bashrc または .zshrc に追加）
+echo "alias ll='ls -la'" >> ~/.bashrc
+
+# エイリアス一覧を表示
+alias</code></pre>
+            </div>
+
+            <h3>コマンド組み合わせ例</h3>
+            <pre><code># .txt ファイルを探して内容を表示
+find . -name "*.txt" -exec cat {} \;
+
+# ディレクトリ内のファイル数をカウント
+ls -1 | wc -l
+
+# 容量が大きいファイルを見つける
+ls -lhS | head -10
+
+# 特定の拡張子のファイルを削除（確認してから実行！）
+find . -name "*.log" -delete</code></pre>
+
+            <div class="warning-box">
+                <strong>⚠️ 注意事項</strong>
+                <ul>
+                    <li>削除コマンド（<code>rm</code>, <code>del</code>）は元に戻せません</li>
+                    <li>重要なファイルを操作する前は必ずバックアップを取りましょう</li>
+                    <li>よくわからないコマンドは実行前に調べましょう</li>
+                    <li><code>sudo</code> や管理者権限は必要な時だけ使いましょう</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>まとめ</h2>
+            <p>これ
