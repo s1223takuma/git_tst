@@ -36,6 +36,19 @@
             opacity: 0.95;
         }
 
+        .back-link {
+            background: white;
+            padding: 1rem 2rem;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .back-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
         nav {
             background: white;
             padding: 1rem 2rem;
@@ -202,13 +215,21 @@
             width: 100%;
         }
 
-
         footer {
             background: #2d2d2d;
             color: white;
             text-align: center;
             padding: 2rem;
             margin-top: 3rem;
+        }
+
+        footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
         }
 
         @media (max-width: 768px) {
@@ -246,8 +267,8 @@
             <li><a href="#about">Gitとは</a></li>
             <li><a href="#install">インストール</a></li>
             <li><a href="#setup">初期設定</a></li>
-            <li><a href="#gh-cli">GitHub CLI</a></li>
             <li><a href="#basic">基本的な使い方</a></li>
+            <li><a href="#gh-cli">GitHub CLI</a></li>
             <li><a href="#trouble">トラブル対処</a></li>
             <li><a href="#terms">用語集</a></li>
         </ul>
@@ -345,9 +366,98 @@ git config --global user.email "your-email@example.com"</code></pre>
             </div>
         </section>
 
+        <section id="basic">
+            <h2>基本的な使い方</h2>
+
+            <h3>はじめてのリポジトリ作成</h3>
+
+            <h4>パターン1: ローカルから始める</h4>
+            <pre><code># 1. プロジェクトフォルダに移動
+cd ~/your-project
+
+# 2. Gitの初期化
+git init
+
+# 3. GitHubにリポジトリを作成（後で説明するgh repo createコマンドも使えます）
+# GitHub上で手動作成して、以下を実行
+git remote add origin git@github.com:ユーザー名/リポジトリ名.git</code></pre>
+
+            <div class="warning-box">
+                <strong>⚠️ 重要</strong>
+                <p><code>git init</code> は必ずプロジェクトのルートディレクトリで実行してください！<br>
+                ホームディレクトリで実行すると、意図しないファイルまで追跡対象になってしまいます。</p>
+            </div>
+
+            <h4>パターン2: GitHubから始める</h4>
+            <pre><code># 1. GitHub上でリポジトリを作成
+# 2. ローカルにクローン
+git clone git@github.com:ユーザー名/リポジトリ名.git
+
+# 3. フォルダに移動
+cd リポジトリ名</code></pre>
+
+            <h3>日常的な作業の流れ</h3>
+            <ol class="steps">
+                <li>ファイルを編集・作成する</li>
+                <li>変更を確認
+                    <pre><code>git status</code></pre>
+                </li>
+                <li>変更をステージング（追加）
+                    <pre><code>git add .</code></pre>
+                </li>
+                <li>コミット（変更を記録）
+                    <pre><code>git commit -m "何を変更したかのメッセージ"</code></pre>
+                </li>
+                <li>GitHubにアップロード
+                    <pre><code>git push origin main</code></pre>
+                </li>
+            </ol>
+            <div class="success-box">
+                <strong>✅ アップロード確認</strong>
+                <img class="grass_image" src="https://s1223takuma.github.io/git_tst/image.png" alt="GitHubの草が生えた画像">
+                <p>こんな感じで草が生えたらOK！！</p>
+            </div>
+
+            <h3>よく使うコマンド</h3>
+
+            <div class="info-box">
+                <strong>git status</strong>
+                <p>現在の状態を確認（何が変更されているか）<br>
+                <strong>迷ったらまずこれ！</strong></p>
+            </div>
+
+            <div class="term">
+                <strong>git log</strong>
+                <p>コミット履歴を表示します。終了は <code>q</code> キー</p>
+            </div>
+
+            <div class="term">
+                <strong>git diff</strong>
+                <p>変更内容の詳細を表示します</p>
+            </div>
+
+            <div class="term">
+                <strong>git fetch origin</strong>
+                <p>GitHubから最新の変更情報を取得（まだマージはしない）<br>
+                安全に確認してからマージできます</p>
+            </div>
+
+            <div class="term">
+                <strong>git merge origin/main</strong>
+                <p>fetchで取得した変更を現在のブランチにマージ</p>
+            </div>
+
+            <div class="term">
+                <strong>git pull origin main</strong>
+                <p>fetchとmergeを一度に実行（<code>git fetch</code> + <code>git merge</code>）<br>
+                慣れないうちは fetch → merge を分けた方が安全</p>
+            </div>
+        </section>
+
         <section id="gh-cli">
             <h2>GitHub CLI（gh コマンド）</h2>
             <p>GitHub CLIは、ターミナルから直接GitHubを操作できる公式ツールです。リポジトリ作成やプルリクエストの管理などがコマンドラインで完結します。</p>
+            <p><strong>基本的なGitの使い方に慣れてから使うことをおすすめします。</strong></p>
 
             <h3>GitHub CLIのインストール</h3>
 
@@ -401,12 +511,26 @@ gh repo create
 
 # 直接作成（パブリック）
 gh repo create my-project --public
+cd my-project  # 作成したディレクトリに移動
 
 # 直接作成（プライベート）
 gh repo create my-project --private
+cd my-project
 
 # READMEも一緒に作成
-gh repo create my-project --public --add-readme</code></pre>
+gh repo create my-project --public --add-readme
+cd my-project</code></pre>
+
+            <div class="info-box">
+                <strong>💡 既存のディレクトリをGitHubにアップロードする場合</strong>
+                <pre><code># プロジェクトフォルダに移動してから
+cd ~/your-project
+git init
+gh repo create my-project --public --source=. --remote=origin
+git add .
+git commit -m "Initial commit"
+git push -u origin main</code></pre>
+            </div>
 
             <h4>gh repo clone</h4>
             <p>リポジトリをクローンします（git clone の gh版）。</p>
@@ -581,96 +705,6 @@ gh pr merge --squash --delete-branch</code></pre>
             </div>
         </section>
 
-        <section id="basic">
-            <h2>基本的な使い方</h2>
-
-            <h3>はじめてのリポジトリ作成</h3>
-
-            <h4>パターン1: ローカルから始める</h4>
-            <pre><code># 1. プロジェクトフォルダに移動
-cd ~/your-project
-
-# 2. Gitの初期化
-git init
-
-# 3. GitHubにリポジトリを作成
-gh repo create
-
-# または GitHub上で手動作成して、以下を実行
-git remote add origin git@github.com:ユーザー名/リポジトリ名.git</code></pre>
-
-            <div class="warning-box">
-                <strong>⚠️ 重要</strong>
-                <p><code>git init</code> は必ずプロジェクトのルートディレクトリで実行してください！<br>
-                ホームディレクトリで実行すると、意図しないファイルまで追跡対象になってしまいます。</p>
-            </div>
-
-            <h4>パターン2: GitHubから始める</h4>
-            <pre><code># 1. GitHub上でリポジトリを作成
-# 2. ローカルにクローン
-git clone git@github.com:ユーザー名/リポジトリ名.git
-
-# 3. フォルダに移動
-cd リポジトリ名</code></pre>
-
-            <h3>日常的な作業の流れ</h3>
-            <ol class="steps">
-                <li>ファイルを編集・作成する</li>
-                <li>変更を確認
-                    <pre><code>git status</code></pre>
-                </li>
-                <li>変更をステージング（追加）
-                    <pre><code>git add .</code></pre>
-                </li>
-                <li>コミット（変更を記録）
-                    <pre><code>git commit -m "何を変更したかのメッセージ"</code></pre>
-                </li>
-                <li>GitHubにアップロード
-                    <pre><code>git push origin main</code></pre>
-                </li>
-            </ol>
-			<div class="success-box">
-                <strong>✅ アップロード確認</strong>
-                <img class="grass_image" src="https://s1223takuma.github.io/git_tst/image.png">
-                <p>こんな感じで草が生えたらOK！！</p>
-            </div>
-
-            <h3>よく使うコマンド</h3>
-
-            <div class="info-box">
-                <strong>git status</strong>
-                <p>現在の状態を確認（何が変更されているか）<br>
-                <strong>迷ったらまずこれ！</strong></p>
-            </div>
-
-            <div class="term">
-                <strong>git log</strong>
-                <p>コミット履歴を表示します。終了は <code>q</code> キー</p>
-            </div>
-
-            <div class="term">
-                <strong>git diff</strong>
-                <p>変更内容の詳細を表示します</p>
-            </div>
-
-            <div class="term">
-                <strong>git fetch origin</strong>
-                <p>GitHubから最新の変更情報を取得（まだマージはしない）<br>
-                安全に確認してからマージできます</p>
-            </div>
-
-            <div class="term">
-                <strong>git merge origin/main</strong>
-                <p>fetchで取得した変更を現在のブランチにマージ</p>
-            </div>
-
-            <div class="term">
-                <strong>git pull origin main</strong>
-                <p>fetchとmergeを一度に実行（<code>git fetch</code> + <code>git merge</code>）<br>
-                慣れないうちは fetch → merge を分けた方が安全</p>
-            </div>
-        </section>
-
         <section id="trouble">
             <h2>よくあるトラブルと対処法</h2>
 
@@ -741,49 +775,4 @@ git push -u origin main</code></pre>
 
             <div class="term">
                 <strong>クローン（Clone）</strong>
-                <p>GitHubのリポジトリをローカルにコピー</p>
-            </div>
-
-            <h3>最初のステップ</h3>
-            <ol>
-                <li>簡単なプロジェクトで試してみる（例: README.mdだけのリポジトリ）</li>
-                <li>変更 → add → commit → push の流れを何度か繰り返す</li>
-                <li>慣れてきたら <code>.gitignore</code> やブランチなどを学ぶ</li>
-            </ol>
-
-            <h3>便利なリソース</h3>
-            <ul>
-                <li><a href="https://docs.github.com/ja" target="_blank">GitHub公式ドキュメント</a></li>
-                <li><a href="https://skills.github.com/" target="_blank">GitHub Skills</a> - インタラクティブな学習</li>
-                <li><a href="https://backlog.com/ja/git-tutorial/" target="_blank">Git入門（サル先生）</a> - 日本語の分かりやすい解説</li>
-            </ul>
-
-            <div class="warning-box">
-                <strong>⚠️ 注意点</strong>
-                <ul>
-                    <li><code>git init</code> は必ずプロジェクトフォルダで実行</li>
-                    <li>コミットメッセージは分かりやすく書く</li>
-                    <li>機密情報（パスワードなど）は絶対にコミットしない</li>
-                    <li>定期的にプッシュしてバックアップ</li>
-                </ul>
-            </div>
-        </section>
-    </div>
-
-    <footer>
-        <p>© 2024 Git/GitHub初心者ガイド | 作成者への連絡は GitHub Issues で</p>
-        <p>作成:s1223takuma <a href="https://x.com/takusoduni">X(twitter)</a></p>
-    </footer>
-
-    <script>
-        // スムーススクロール（ページ内リンクのみ）
-        document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            });
-        });
-    </script>
-</body>
-</html>
+                <p
