@@ -397,13 +397,34 @@ git clone git@github.com:ユーザー名/リポジトリ名.git
 cd リポジトリ名</code></pre>
 
             <h3>日常的な作業の流れ</h3>
+            <p>実際にファイルを作って、GitHubにアップロードしてみましょう。</p>
             <ol class="steps">
-                <li>ファイルを編集・作成する</li>
+                <li>ファイルを作成・編集する
+                    <pre><code># 新しいファイルを作成（Bash）
+touch README.md
+
+# Windowsの場合
+type nul > README.md
+
+# エディタで編集（選択肢）
+nano README.md  # 初心者におすすめ（Bash）
+vim README.md   # 慣れている人向け（Bash）
+notepad README.md  # Windows</code></pre>
+                    <div class="info-box">
+                        <strong>💡 簡単な内容を書いてみよう</strong>
+                        <p>README.mdに以下のような内容を書いてみましょう：</p>
+                        <pre><code># My First Project
+
+This is my first GitHub project!</code></pre>
+                    </div>
+                </li>
                 <li>変更を確認
                     <pre><code>git status</code></pre>
+                    <p>赤色で「README.md」が表示されればOK</p>
                 </li>
                 <li>変更をステージング（追加）
                     <pre><code>git add .</code></pre>
+                    <p>もう一度 <code>git status</code> すると、緑色で表示される</p>
                 </li>
                 <li>コミット（変更を記録）
                     <pre><code>git commit -m "何を変更したかのメッセージ"</code></pre>
@@ -416,6 +437,32 @@ cd リポジトリ名</code></pre>
                 <strong>✅ アップロード確認</strong>
                 <img class="grass_image" src="https://s1223takuma.github.io/git_tst/image.png" alt="GitHubの草が生えた画像">
                 <p>こんな感じで草が生えたらOK！！</p>
+            </div>
+
+            <div class="info-box">
+                <strong>💡 エディタの使い方（簡単な順）</strong>
+                <h4>nano（Bashで使える、初心者向け）</h4>
+                <ul>
+                    <li>起動：<code>nano README.md</code></li>
+                    <li>そのまま編集可能</li>
+                    <li><code>Ctrl + O</code> → Enter で保存</li>
+                    <li><code>Ctrl + X</code> で終了</li>
+                </ul>
+                <h4>vim（Bashで使える、高機能）</h4>
+                <ul>
+                    <li>起動：<code>vim README.md</code></li>
+                    <li><code>i</code> キーで編集モードに入る</li>
+                    <li>編集後、<code>ESC</code> キーでノーマルモードに戻る</li>
+                    <li><code>:wq</code> と入力してEnterで保存して終了</li>
+                    <li><code>:q!</code> で保存せずに終了</li>
+                </ul>
+                <h4>メモ帳（Windows）</h4>
+                <ul>
+                    <li>起動：<code>notepad README.md</code></li>
+                    <li>普通のメモ帳として使える</li>
+                    <li>保存して閉じる</li>
+                </ul>
+                <p><strong>詳しくは</strong> → <a href="linux_command.html#file-view">Windows/Bashコマンド集</a></p>
             </div>
 
             <h3>よく使うコマンド</h3>
