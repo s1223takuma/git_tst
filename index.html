@@ -264,6 +264,7 @@
 
     <nav>
         <ul>
+            <li><a href="#info">はじめに</a></li>
             <li><a href="#about">Gitとは</a></li>
             <li><a href="#install">インストール</a></li>
             <li><a href="#setup">初期設定</a></li>
@@ -275,8 +276,20 @@
     </nav>
 
     <div class="container">
+        <section id="info">
+         <h2>はじめに</h2>
+
+            <p>これは時々使うかな？的な内容を含めた道具集です。<br>最初のうちは</p>
+            <code>git add .
+<br>git commit -m "commit message"
+<br>git push origin [リポジトリ名]
+            </code>
+            <p>だけ覚えてたら基本的には困りません。</p>
+            <p>詳しくは→<a href="#git memorize">こちら</a>
+
+        </section>
         <section id="about">
-            <h2>GitとGitHubって何？</h2>
+             <h2>GitとGitHubって何？</h2>
             
             <h3>Git（ギット）</h3>
             <p>ファイルの変更履歴を管理するツールです。</p>
@@ -418,7 +431,7 @@ notepad README.md  # Windows</code></pre>
 This is my first GitHub project!</code></pre>
                     </div>
                 </li>
-                <li>変更を確認
+                <li id="git memorize">変更を確認
                     <pre><code>git status</code></pre>
                     <p>赤色で「README.md」が表示されればOK</p>
                 </li>
@@ -557,11 +570,24 @@ This is my first GitHub project!</code></pre>
             <pre><code># コンソールと会話しながら作成
 gh repo create
 
-# 直接作成（パブリック）
+
+? What would you like to do?  [Use arrows to move, type to filter]
+# 空のリポジトリ(何のファイルも入っていないリポジトリ)を作成
+  Create a new repository on github.com from scratch
+# 空のリポジトリをテンプレートを元に作成
+  Create a new repository on github.com from a template repository
+# カレントディレクトリをリポジトリとしてgithubに上げる(事前にgit init必須)
+Push an existing local repository to github.com
+
+
+</code></pre>
+<h5>直接作成</h5>
+<pre><code>
+# パブリック
 gh repo create my-project --public
 cd my-project  # 作成したディレクトリに移動
 
-# 直接作成（プライベート）
+# プライベート
 gh repo create my-project --private
 cd my-project
 
@@ -828,12 +854,22 @@ git push -u origin main</code></pre>
             
             <div class="term">
                 <strong>フォーク（fork）</strong>
-                <p>他人のGitHubリポジトリを自分のGitHubアカウントにコピーする</p>
+                <p>他人のGitHubリポジトリを自分のGitHubアカウントにコピーする<br>(元のリポジトリとリンクされている状態)</p>
             </div>
             
             <div class="term">
                 <strong>プルリクエスト（pull request）</strong>
                 <p>別のブランチやフォークしたリポジトリの変更を、元のリポジトリに取り込んでもらうためのリクエスト</p>  
+            </div>
+            <h3>余裕があったら覚えておくと後々使えるもの</h3> 
+            <div class="term">
+                <strong>README.md</strong>
+                <p>リポジトリの説明をmarkdown形式で書けるファイル</p>
+            </div>
+            <div class="term">
+                <strong>.gitignore</strong>
+                <p>githubリポジトリにアップロードしたくないファイルを書き込むファイル<br>ここに書き込むとアップロードされない</p>
+                <p style="color: red;">※APIkeyとかパスワードは<strong>絶対に</strong>ここに入れる</p>
             </div>
         </section>
     </body>
